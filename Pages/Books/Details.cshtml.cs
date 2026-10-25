@@ -29,8 +29,10 @@ namespace Colceriu_Alex_Lab2.Pages.Books
             }
 
             var book = await _context.Book
-                .Include(b => b.Publisher)
                 .Include(b => b.Author)
+                .Include(b => b.Publisher)
+                .Include(b => b.BookCategories!)
+                    .ThenInclude(b => b.Category)
                 .FirstOrDefaultAsync(m => m.ID == id);
 
             if (book == null)
